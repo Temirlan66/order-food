@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/order-food/static/css/main.fd0478a1.css",
-    "main.js": "/order-food/static/js/main.ba1f31e8.js",
-    "static/media/summary-background.jpg": "/order-food/static/media/summary-background.058e3a5749d88597754f.jpg",
-    "static/media/cart.svg": "/order-food/static/media/cart.c36faa3efca4c2a3b7311ff4f8994381.svg",
+    "main.css": "/order-food/static/css/main.00416401.css",
+    "main.js": "/order-food/static/js/main.11886896.js",
+    "static/media/summaryImg.jpg": "/order-food/static/media/summaryImg.0b28892d5515857671bc.jpg",
+    "static/media/basket-icon.svg": "/order-food/static/media/basket-icon.2fef32082e9401484e897e109e396903.svg",
     "index.html": "/order-food/index.html",
-    "static/media/plus-icon.svg": "/order-food/static/media/plus-icon.f6449d6005345c09378ddf02e862b973.svg",
-    "main.fd0478a1.css.map": "/order-food/static/css/main.fd0478a1.css.map",
-    "main.ba1f31e8.js.map": "/order-food/static/js/main.ba1f31e8.js.map"
+    "static/media/plus.svg": "/order-food/static/media/plus.f6449d6005345c09378ddf02e862b973.svg",
+    "main.00416401.css.map": "/order-food/static/css/main.00416401.css.map",
+    "main.11886896.js.map": "/order-food/static/js/main.11886896.js.map"
   },
   "entrypoints": [
-    "static/css/main.fd0478a1.css",
-    "static/js/main.ba1f31e8.js"
+    "static/css/main.00416401.css",
+    "static/js/main.11886896.js"
   ]
 }
