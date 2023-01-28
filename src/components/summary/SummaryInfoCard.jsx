@@ -1,39 +1,50 @@
-import React from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 
-
-const SummaryInfoCard = () => {
+const SummaryInfocard = () => {
   return (
-    <Card>  
-      <StyledHeading>Delicious Food, Delivered To You</StyledHeading>
-      <p>
+    <Card>
+      <StyledTitle>Delicious Food, Delivered To You</StyledTitle>
+      <StyledText>
         Choose your favorite meal from our broad selection of available meals
         and enjoy a delicious lunch or dinner at home.
-      </p>
-      <p>
+      </StyledText>
+      <StyledText>
         All our meals are cooked with high-quality ingredients, just-in-time and
         of course by  experienced chefs!
-      </p>
+      </StyledText>
     </Card>
   );
 };
 
-export default SummaryInfoCard;
+export default SummaryInfocard;
 
 const Card = styled.div`
-  width: 53.375rem;
-  text-align: center;
-  padding: 2.25rem 3.375rem;
-  position: relative;
-  margin: -12rem auto auto;
-  bottom: 0;
+  max-width: 53.375rem;
   background-color: #383838;
+  padding: 36px 54px;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+  border-radius: 16px;
+  margin: -12rem auto;
   color: white;
-  border-radius: 14px;
-  box-shadow: 0 1px 18px 10px rgb(0, 0, 0 ,25%);
+  text-align: center;
+  /* top: 175px; */
+  /* height: 270px; */
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 `;
-const StyledHeading = styled.h1`
-    font-weight: 600;
-font-size: 36px;
-line-height: 54px;
-`
+
+const StyledTitle = styled.h1`
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+`;
+const StyledText = styled.p`
+  margin-top: 28px;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+`;

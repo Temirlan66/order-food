@@ -1,37 +1,36 @@
-import React from "react";
 import styled from "styled-components";
-import BasketButton from "./BusketButton";
+import BasketButton from "./BasketButton";
 
 const Header = () => {
   return (
     <Container>
       <Logo>ReactMeals</Logo>
-      <BasketButton> 7</BasketButton>
-
+      <BasketButton />
     </Container>
   );
 };
 
 export default Header;
 
-const Container = styled.header`
-position: fixed;
-top: 0;
-  height: 101px;
-  background-color: #8a2b06;
+const Container = styled.div`
   width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  height: 101px;
+  background-color: rgb(138, 43, 6);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-left: 120px;
   padding-right: 120px;
-  align-items: center;
-  z-index: 100;
 `;
 
 const Logo = styled.p`
+  margin: 0;
   font-weight: 600;
   font-size: 38px;
   line-height: 57px;
-  color: white;
-  margin: 0;
+  color: #ffffff;
+  font-family: Poppins, sans-serif;
 `;
