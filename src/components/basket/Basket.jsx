@@ -1,43 +1,46 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { BasketContext } from "../../store/BasketContext";
 import Modal from "../UI/Modal";
 import BasketItem from "./BasketItem";
 import TotalAmount from "./TotalAmount";
 
-const Basket = () => {
-  const items = [
-    {
-      id: "1",
-      title: "Sushi",
-      amount: "3",
-      price: 22.99,
-    },
-    {
-      id: "2",
-      title: "Schnitzel",
-      amount: "3",
-      price: 16.51,
-    },
-    {
-      id: "3",
-      title: "Barbecue Burger",
-      amount: "3",
-      price: 12.99,
-    },
-    {
-      id: "4",
-      title: "Green Bowl",
-      amount: "3",
-      price: 19.99,
-    },
-  ];
+const Basket = ({ onClose }) => {
+  const { items } = useContext(BasketContext);
+
+  const { updateBasketItem, deleteBasketItem } = useContext(BasketContext);
+
+  const dec = (id, amount) => {
+    if (amount > 1) {
+      updateBasketItem({ amount: amount - 1, id: id });
+    } else {
+      deleteBasketItem(id);
+    }
+  };
+  // const decrementAmount = (id, amount) => {
+  //   if (amount > 1) {
+  //     updateBasketItem({ amount: amount - 1, id: id });
+  //   } else {
+  //     deleteBasketItem(id);
+  //   }
+
+  const incrementAmount = (id, amount) => {
+    updateBasketItem({ amount: amount + 1, id: id });
+  };
+
+  const getTotalPrice = () => {
+    return items.reduce((sum, { amount, price }) => sum + price * amount, 0);
+  };
   return (
-    <Modal onClose={() => {}}>
+    <Modal onClose={onClose}>
       <StyledTotalContainer>
         <FiwedHeightContainer>
           {items.map((item) => {
             return (
               <BasketItem
-                key={item.id}
+                key={item._id}
+                incrementAmount={() => incrementAmount(item._id, item.amount)}
+                dec={() => dec(item._id, item.amount)}
                 title={item.title}
                 price={item.price}
                 amount={item.amount}
@@ -46,7 +49,11 @@ const Basket = () => {
           })}
         </FiwedHeightContainer>
 
-        <TotalAmount price={200} onClose={() => {}} onOrder={() => {}} />
+        <TotalAmount
+          price={getTotalPrice()}
+          onClose={onClose}
+          onOrder={() => {}}
+        />
       </StyledTotalContainer>
     </Modal>
   );
@@ -62,5 +69,4 @@ const StyledTotalContainer = styled.div`
 const FiwedHeightContainer = styled.div`
   max-height: 228px;
   overflow-y: scroll;
-  /* padding-bottom: 30px; */
 `;

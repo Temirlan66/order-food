@@ -1,10 +1,9 @@
-// import { Children } from "react";
 import styled from "styled-components";
 import {ReactComponent as BasketIcon} from "../../assets/icons/basket-icon.svg"
 
-const BasketButton = ({count}) => {
+const BasketButton = ({count , ...restProps}) => {
   return (
-    <StyledButton>
+    <StyledButton {...restProps} >
       <BasketIcon />
       <StyledTitle>Your cart</StyledTitle>
       <CountStyled id="counter">{count || 0}</CountStyled>
@@ -35,6 +34,28 @@ const StyledButton = styled.button`
   :hover > #counter > {
     background-color: #2c0d00;
   }
+
+  &.bump {
+  animation: bump 300ms ease-out;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 `;
 
 const StyledTitle = styled.span`

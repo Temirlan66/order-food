@@ -3,11 +3,11 @@ import styled from "styled-components";
 import Button from "../UI/Button";
 
 const TotalAmount = ({ price, onClose, onOrder }) => {
-  const orderButton = { price } > 0 && (
+  const orderButton =  price > 0 ? 
     <Button variant="contained" onClick={onOrder}>
       Order
     </Button>
-  );
+  :null
   const fixedPrice = price.toFixed(2);
   return (
     <div>

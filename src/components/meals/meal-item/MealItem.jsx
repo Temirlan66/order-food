@@ -1,15 +1,18 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { BasketContext } from "../../../store/BasketContext";
 import MealItemForm from "./MealItemForm";
 
-const MealItem =  ({meal})=>{
+const MealItem =  ({title, price, description,id})=>{
+
     return (
       <Container>
         <StyledItemInfo>
-          <StyledTitle>{meal.title}</StyledTitle>
-          <p>{meal.description}</p>
-          <span>${meal.price}</span>
+          <StyledTitle>{title}</StyledTitle>
+          <p>{description}</p>
+          <span>${price}</span>
         </StyledItemInfo>
-        <MealItemForm id={"amount" + Math.random().toString()}/>
+        <MealItemForm id={id} price={price} title={title}/>
       </Container>
     );
 }
