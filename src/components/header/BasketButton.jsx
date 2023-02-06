@@ -1,9 +1,10 @@
+import { memo } from "react";
 import styled from "styled-components";
-import {ReactComponent as BasketIcon} from "../../assets/icons/basket-icon.svg"
+import { ReactComponent as BasketIcon } from "../../assets/icons/basket-icon.svg";
 
-const BasketButton = ({count , ...restProps}) => {
+const BasketButton = ({ count, ...restProps }) => {
   return (
-    <StyledButton {...restProps} >
+    <StyledButton {...restProps}>
       <BasketIcon />
       <StyledTitle>Your cart</StyledTitle>
       <CountStyled id="counter">{count || 0}</CountStyled>
@@ -11,7 +12,7 @@ const BasketButton = ({count , ...restProps}) => {
   );
 };
 
-export default BasketButton;
+export default memo(BasketButton);
 
 const StyledButton = styled.button`
   background: #5a1f08;
@@ -36,26 +37,26 @@ const StyledButton = styled.button`
   }
 
   &.bump {
-  animation: bump 300ms ease-out;
-}
+    animation: bump 300ms ease-out;
+  }
 
-@keyframes bump {
-  0% {
-    transform: scale(1);
+  @keyframes bump {
+    0% {
+      transform: scale(1);
+    }
+    10% {
+      transform: scale(0.9);
+    }
+    30% {
+      transform: scale(1.1);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
-  10% {
-    transform: scale(0.9);
-  }
-  30% {
-    transform: scale(1.1);
-  }
-  50% {
-    transform: scale(1.15);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 `;
 
 const StyledTitle = styled.span`
@@ -70,4 +71,4 @@ const CountStyled = styled.span`
   font-size: 20px;
   line-height: 27px;
   color: #ffffff;
-`
+`;

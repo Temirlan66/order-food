@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import "./App.css";
 import Basket from "./components/basket/Basket";
 import Header from "./components/header/Header";
@@ -7,22 +7,18 @@ import Summary from "./components/summary/Summary";
 import { BasketProvider } from "./store/BasketContext";
 
 function App() {
+  const [isBasketVisible, setBasketVisible] = useState(false);
 
-  const [isBasketVisible, setBasketVisible] = useState(false)
-
-  const showBasketHnadler = () =>{
-    setBasketVisible((prevState) => !prevState)
-    }
+  const showBasketHnadler = useCallback(() => {
+    setBasketVisible((prevState) => !prevState);
+  },[])
   return (
-    
-      <BasketProvider>
+    <BasketProvider>
       <Header onShowBasket={showBasketHnadler} />
-        <Summary />
-        <Meals />
-      {isBasketVisible && <Basket onClose={showBasketHnadler}/>}
-      </BasketProvider>
-      
-    
+      <Summary />
+      <Meals />
+      {isBasketVisible && <Basket onClose={showBasketHnadler} />}
+    </BasketProvider>
   );
 }
 

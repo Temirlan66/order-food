@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import styled from "styled-components";
-import { BasketContext } from "../../../store/BasketContext";
 import MealItemForm from "./MealItemForm";
 
 const MealItem =  ({title, price, description,id})=>{

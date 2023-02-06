@@ -1,34 +1,7 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import { fetchApi } from "../../lib/fetchAPI";
 import MealItem from "./meal-item/MealItem";
-
-// const DUMMY_MEALS = [
-  // {
-  //   id: "1",
-  //   title: "Sushi",
-  //   description: "Finest fish and veggies",
-  //   price: 22.99,
-  // },
-  // {
-  //   id: "2",
-  //   title: "Schnitzel",
-  //   description: "A german specialty!",
-  //   price: 16.51,
-  // },
-  // {
-  //   id: "3",
-  //   title: "Barbecue Burger",
-  //   description: "American, raw, meaty",
-  //   price: 12.99,
-  // },
-  // {
-  //   id: "4",
-  //   title: "Green Bowl",
-  //   description: "Healthy...and green...",
-  //   price: 19.99,
-  // },
-// ];
 
 const Meals = () => {
   const [meals, setMeals] = useState([]);
@@ -65,7 +38,7 @@ const Meals = () => {
   );
 };
 
-export default Meals;
+export default memo(Meals);
 
 const Card = styled.div`
   background: #ffffff;

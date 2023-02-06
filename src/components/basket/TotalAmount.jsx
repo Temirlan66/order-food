@@ -1,15 +1,16 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
 import styled from "styled-components";
 import Button from "../UI/Button";
 
 const TotalAmount = ({ price, onClose, onOrder }) => {
-  const orderButton =  price > 0 ? 
-    <Button variant="contained" onClick={onOrder}>
-      Order
-    </Button>
-  :null
-  const fixedPrice = price.toFixed(2);
-  return (
+  const orderButton =
+    price > 0 ? (
+      <Button variant="contained" onClick={onOrder}>
+        Order
+      </Button>
+    ) : null;
+    const fixedPrice = useMemo(() => price.toFixed(2), [price])
+    return (
     <div>
       <StyledTiltleContainer>
         <StyledTitle>Total Amount</StyledTitle>
@@ -25,7 +26,7 @@ const TotalAmount = ({ price, onClose, onOrder }) => {
   );
 };
 
-export default TotalAmount;
+export default memo(TotalAmount);
 
 const StyledTitle = styled.p`
   font-weight: 700;
