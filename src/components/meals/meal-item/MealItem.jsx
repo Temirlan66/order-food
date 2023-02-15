@@ -2,7 +2,7 @@ import styled from "styled-components";
 import MealItemForm from "./MealItemForm";
 
 const MealItem =  ({title, price, description,id})=>{
-
+  console.log(title)
     return (
       <Container>
         <StyledItemInfo>

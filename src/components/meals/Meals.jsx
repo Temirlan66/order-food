@@ -1,27 +1,30 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import styled from "styled-components";
-import { fetchApi } from "../../lib/fetchAPI";
 import MealItem from "./meal-item/MealItem";
 
-const Meals = () => {
-  const [meals, setMeals] = useState([]);
+const Meals = ({ meals, isLoading, error }) => {
+  console.log(meals);
+  // console.log(isLoading);
+  // const [meals, setMeals] = useState([]);
 
-  const getMeals = async () => {
-    try {
-      const responce = await fetchApi("foods");
-      setMeals(responce.data);
-    } catch (error) {
-      console.log("Something wert worht");
-    }
-  };
+  // const getMeals = async () => {
+  //   try {
+  //     const responce = await fetchApi("foods");
+  //     setMeals(responce.data);
+  //   } catch (error) {
+  //     console.log("Something wert worht");
+  //   }
+  // };
 
-  useEffect(() => {
-    getMeals();
-  }, []);
+  // useEffect(() => {
+  //   getMeals();
+  // }, []);
 
   return (
     <Card>
       <ul>
+        {isLoading && <p>Loading.........</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
         {meals.map((meal) => {
           return (
             <MealItem
