@@ -13,7 +13,6 @@ function AppContent() {
 
   const { sortDirection, changesetSortDirection, meals, isLoading, error } =
     useFoods();
-  // console.log(meals);
   const showBasketHnadler = useCallback(() => {
     setBasketVisible((prevState) => !prevState);
   }, []);

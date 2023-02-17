@@ -1,16 +1,14 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-  deleteBasketItem,
-  updateBasketItem,
-} from "../../store/basket/BasketReducer";
+import { deleteBasketItem, updateBasketItem } from "../../store/basket/basketSlice";
+
 import Modal from "../UI/Modal";
 import BasketItem from "./BasketItem";
 import TotalAmount from "./TotalAmount";
 
 const Basket = ({ onClose }) => {
-  const items = useSelector((state) => state.basket.items);
+  const {items =[]} = useSelector((state) => state.basket);
   const dispatch = useDispatch();
   const dec = useCallback(
     (id, amount) => {
