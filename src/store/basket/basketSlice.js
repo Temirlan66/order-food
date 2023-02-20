@@ -37,7 +37,7 @@ export const basketSlice = createSlice({
     });
     builder.addCase(getBasket.rejected, (state, action) => {
       state.isLoading = false;
-      state.items=action.payload
+      state.items = action.payload;
     });
   },
 });
@@ -96,6 +96,25 @@ export const deleteBasketItem = createAsyncThunk(
       dispatch(getBasket());
     } catch (error) {
       console.log(error);
+    }
+  }
+);
+
+export const submitOrder = createAsyncThunk(
+  "basket/submitOrder",
+  async (
+    { orderData },
+    { dispatch, rejectWithValue}
+  ) => {
+    try {
+      await fetchApi("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        body: orderData,
+      });
+
+      dispatch(getBasket())
+    } catch (error) {
+      return rejectWithValue("Something went wrong");
     }
   }
 );

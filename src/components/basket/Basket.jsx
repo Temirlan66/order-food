@@ -1,14 +1,18 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { deleteBasketItem, updateBasketItem } from "../../store/basket/basketSlice";
-
-import Modal from "../UI/Modal";
+import {
+  deleteBasketItem,
+  submitOrder,
+  updateBasketItem,
+} from "../../store/basket/basketSlice";
 import BasketItem from "./BasketItem";
 import TotalAmount from "./TotalAmount";
+import { uiActions } from "../../store/ui/uiSlice";
+import MuiModal from "../UI/MuiModal";
+const Basket = ({ onClose, onOpen}) => {
+  const items = useSelector((state) => state.basket.items);
 
-const Basket = ({ onClose }) => {
-  const {items =[]} = useSelector((state) => state.basket);
   const dispatch = useDispatch();
   const dec = useCallback(
     (id, amount) => {
@@ -31,31 +35,58 @@ const Basket = ({ onClose }) => {
   const getTotalPrice = useCallback(() => {
     return items.reduce((sum, { price, amount }) => (sum += price * amount), 0);
   }, [items]);
-  return (
-    <Modal onClose={onClose}>
-      <StyledTotalContainer>
-        <FiwedHeightContainer>
-          {items.map((item) => {
-            return (
-              <BasketItem
-                key={item._id}
-                incrementAmount={() => incrementAmount(item._id, item.amount)}
-                dec={() => dec(item._id, item.amount)}
-                title={item.title}
-                price={item.price}
-                amount={item.amount}
-              />
-            );
-          })}
-        </FiwedHeightContainer>
 
-        <TotalAmount
-          price={getTotalPrice()}
-          onClose={onClose}
-          onOrder={() => {}}
-        />
-      </StyledTotalContainer>
-    </Modal>
+  const orderSubmitHandlet = async () => {
+    try {
+      await dispatch(
+        submitOrder({
+          orderData: { items },
+        })
+      ).unwrap();
+      dispatch(
+        uiActions.showSnackbar({
+          severity: "success",
+          message: "Order completed successfully!",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        uiActions.showSnackbar({
+          severity: "error",
+          message: "Failed , try again later!",
+        })
+      );
+    } finally {
+      onClose();
+    }
+  };
+  return (
+
+      <MuiModal onClose={onClose} onOpen={onOpen}>
+        <StyledTotalContainer>
+          <FiwedHeightContainer>
+            {items.map((item) => {
+              return (
+                <BasketItem
+                  key={item._id}
+                  incrementAmount={() => incrementAmount(item._id, item.amount)}
+                  dec={() => dec(item._id, item.amount)}
+                  title={item.title}
+                  price={item.price}
+                  amount={item.amount}
+                />
+              );
+            })}
+          </FiwedHeightContainer>
+
+          <TotalAmount
+            price={getTotalPrice()}
+            onClose={onClose}
+            onOrder={orderSubmitHandlet}
+          />
+        </StyledTotalContainer>
+      </MuiModal>
+
   );
 };
 

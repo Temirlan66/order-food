@@ -55,7 +55,6 @@ export const getMeals = createAsyncThunk(
   async (payload, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await fetchApi("foods");
-      console.log(data);
       dispatch(mealsAction.getMealsSuccess(data));
       return data;
     } catch (error) {
