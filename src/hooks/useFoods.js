@@ -22,7 +22,6 @@ export const useFoods = () => {
       if (sortDirection === "ASC") {
         return a.price - b.price;
       }
-
       return b.price - a.price;
     });
   }, [sortDirection, meals]);

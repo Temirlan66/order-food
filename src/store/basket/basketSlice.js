@@ -95,7 +95,7 @@ export const deleteBasketItem = createAsyncThunk(
 
       dispatch(getBasket());
     } catch (error) {
-      console.log(error);
+      return rejectWithValue("Failed")
     }
   }
 );

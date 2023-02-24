@@ -10,6 +10,7 @@ import { useFoods } from "./hooks/useFoods";
 import styled from "styled-components";
 import Snackbar from "./components/UI/Snackbar";
 import { uiActions } from "./store/ui/uiSlice";
+import {  MenuItem, Select } from "@mui/material";
 function AppContent() {
   const dispatch = useDispatch();
   const [isBasketVisible, setBasketVisible] = useState(false);
@@ -25,16 +26,19 @@ function AppContent() {
 
       <Summary />
       <Content>
-        <select
-          onChange={(e) => changesetSortDirection(e.target.value)}
+        <StyledSelect
           value={sortDirection}
+          label="Age"
+          onChange={(e) => changesetSortDirection(e.target.value)}
         >
-          <option value="ASC">cheaper</option>
-          <option value="DESC">more expensive</option>
-        </select>
+          <MenuItem value={"ASC"}>Cheaper</MenuItem>
+          <MenuItem value={"DESC"}>More expensive</MenuItem>
+        </StyledSelect>
       </Content>
       <Meals meals={meals} isLoading={isLoading} error={error} />
-      {isBasketVisible && <Basket onOpen={isBasketVisible} onClose={showBasketHnadler} />}
+      {isBasketVisible && (
+        <Basket onOpen={isBasketVisible} onClose={showBasketHnadler} />
+      )}
       <Snackbar
         isOpen={snackbar.isOpen}
         severits={snackbar.severity}
@@ -54,15 +58,25 @@ const App = () => {
 };
 
 export default App;
-const Content = styled.div`
-  padding: 20px 10px;
+const Content = styled("div")(() => ({
+  "&": {
+    marginTop: "150px",
+    position: "absolute",
+    marginLeft: "100px",
+  },
+}));
+
+const StyledSelect = styled(Select)(() => ({
+  "&": {
+    background: "white",
+  },
+}));
+/* padding: 20px 10px;
   border: none;
   margin-top: 180px;
-  display: flex;
-  margin-left: 200px;
-  justify-content: center;
-  position: absolute;
-`;
+ 
+  /* justify-content: center; */
+//
 /*
 GET /foods
 Headers: { UserID: "your_name"  } 

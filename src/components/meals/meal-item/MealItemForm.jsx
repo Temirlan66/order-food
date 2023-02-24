@@ -1,10 +1,11 @@
-import styled from "styled-components";
-import Button from "../../UI/Button";
+import StyledComponent from "styled-components";
 import { ReactComponent as PlusIcon } from "../../../assets/icons/plus.svg";
-import {  useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToBasket } from "../../../store/basket/basketSlice";
-
+import { TextField } from "@mui/material";
+import { styled } from "@mui/system";
+import BasicButtons from "../../UI/Button";
 const MealItemForm = ({ id, price, title }) => {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(1);
@@ -25,34 +26,45 @@ const MealItemForm = ({ id, price, title }) => {
     dispatch(addToBasket(basketItem));
   };
   return (
-    <StyledForm onSubmit={submitHandler}>
+    <StyledForm >
       <Container>
         <label htmlFor={id}>Amount</label>
-        <input
+        <StyledTextFieled
+          id={id}
           value={amount}
           onChange={amountChangeHandler}
           type="number"
-          id={id}
-          min={1}
-          max={5}
-          defaultChecked={1}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size="small"
         />
       </Container>
-      <Button>
+
+      <BasicButtons onClick={submitHandler}>
         <StyledIcon />
         Add
-      </Button>
+      </BasicButtons>
     </StyledForm>
   );
 };
 
 export default MealItemForm;
 
-const StyledIcon = styled(PlusIcon)`
+const StyledTextFieled = styled(TextField)(() => ({
+  "&": {
+    width: "70px",
+  },
+  "& .MuiOutlinedInput-input": {
+    padding: "5px 10px",
+    fontSize: "14px",
+  },
+}));
+const StyledIcon = StyledComponent(PlusIcon)`
   margin-right: 10px;
 `;
 
-const Container = styled.div`
+const Container = StyledComponent.div`
   margin-bottom: 12px;
   label {
     font-weight: 600;
@@ -74,7 +86,7 @@ const Container = styled.div`
   }
 `;
 
-const StyledForm = styled.form`
+const StyledForm = StyledComponent.form`
   display: flex;
   flex-direction: column;
   align-items: flex-end;

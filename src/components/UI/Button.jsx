@@ -1,41 +1,61 @@
-import styled from "styled-components";
+// import styled from "styled-components";
+// import {styled} from "@mui/system"
 
-const Button = ({ children, variant = "contained", ...restProps }) => {
+import { Button } from "@mui/material";
+import { styled } from "@mui/system";
+export default function BasicButtons({
+  children,
+  borderStyle,
+  variant = "contained",
+  ...restProps
+}) {
   return (
     <StyledButton variant={variant} {...restProps}>
       {children}
     </StyledButton>
   );
-};
+}
 
-export default Button;
 
-const getBackgroundColor = (props) => {
-  return props.variant === "contained" ? "rgb(126, 42, 10)" : "#fff";
+
+const getBackgroundColor = (variant) => {
+  return variant === "contained" ? "rgb(126, 42, 10)" : "#fff";
 };
-const getBorder = (props) => {
-  return props.variant === "contained"
+const getBorder = (variant) => {
+  return variant === "contained"
     ? "none"
     : " 1px solid #8A2B06; color:#8A2B06 ";
 };
 
-const StyledButton = styled.button`
-  background: ${getBackgroundColor};
-  border-radius: 20px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-  color: white;
-  margin: 0;
-  border: ${getBorder};
-  padding: 10px 15px;
-  cursor: pointer;
+const getBorderRadius = (borderStyle) => {
+  return borderStyle === "rounder" ? "20px" : "6px";
+};
 
-  &:hover {
-    background-color: #2c0d00;
-    color: #ffffff;
-  }
-  :active {
-    background-color: #993108;
-  }
-`;
+
+const getPadding = (borderStyle) => {
+  return borderStyle === "rounded" ? "10px 32px" : "8px 6px";
+};
+
+
+
+const StyledButton = styled(Button)(({ borderStyle, variant }) => ({
+  background: getBackgroundColor(variant),
+  fontSize: "16px",
+  fontWeight: "600",
+  lineHeight: "24px",
+  borderRadius: getBorderRadius(borderStyle),
+  color: "white",
+  margin: "0",
+  border: getBorder(variant),
+  padding: getPadding(variant),
+  cursor: "pointer",
+  "&:hover": {
+    background: "#2c0d00",
+  },
+  "& :active": {
+    color: " #993108",
+  },
+  "& :disabled": {
+    color: "CAC6C4",
+  },
+}))
