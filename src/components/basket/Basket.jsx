@@ -10,7 +10,7 @@ import BasketItem from "./BasketItem";
 import TotalAmount from "./TotalAmount";
 import { uiActions } from "../../store/ui/uiSlice";
 import MuiModal from "../UI/MuiModal";
-const Basket = ({ onClose, onOpen}) => {
+const Basket = ({ onClose, onOpen }) => {
   const items = useSelector((state) => state.basket.items);
 
   const dispatch = useDispatch();
@@ -61,32 +61,30 @@ const Basket = ({ onClose, onOpen}) => {
     }
   };
   return (
+    <MuiModal onClose={onClose} onOpen={onOpen}>
+      <StyledTotalContainer>
+        <FiwedHeightContainer>
+          {items.map((item) => {
+            return (
+              <BasketItem
+                key={item._id}
+                incrementAmount={() => incrementAmount(item._id, item.amount)}
+                dec={() => dec(item._id, item.amount)}
+                title={item.title}
+                price={item.price}
+                amount={item.amount}
+              />
+            );
+          })}
+        </FiwedHeightContainer>
 
-      <MuiModal onClose={onClose} onOpen={onOpen}>
-        <StyledTotalContainer>
-          <FiwedHeightContainer>
-            {items.map((item) => {
-              return (
-                <BasketItem
-                  key={item._id}
-                  incrementAmount={() => incrementAmount(item._id, item.amount)}
-                  dec={() => dec(item._id, item.amount)}
-                  title={item.title}
-                  price={item.price}
-                  amount={item.amount}
-                />
-              );
-            })}
-          </FiwedHeightContainer>
-
-          <TotalAmount
-            price={getTotalPrice()}
-            onClose={onClose}
-            onOrder={orderSubmitHandlet}
-          />
-        </StyledTotalContainer>
-      </MuiModal>
-
+        <TotalAmount
+          price={getTotalPrice()}
+          onClose={onClose}
+          onOrder={orderSubmitHandlet}
+        />
+      </StyledTotalContainer>
+    </MuiModal>
   );
 };
 

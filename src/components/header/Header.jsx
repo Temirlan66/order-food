@@ -1,15 +1,17 @@
+import { Button } from "@mui/material";
 import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import styledComponents from "styled-components";
 import { getBasket } from "../../store/basket/basketSlice";
-
+import { uiActions } from "../../store/ui/uiSlice";
+import { styled } from "@mui/system";
 import BasketButton from "./BasketButton";
 
-const Header = ({ onShowBasket }) => {
+function Header({ onShowBasket }) {
   const dispatch = useDispatch();
-  const {items } = useSelector((state) => state.basket);
+  const { items } = useSelector((state) => state.basket);
   const [animationClass, setAnimationClass] = useState("");
-
+  const themeMode = useSelector((state) => state.ui.themeMode);
   useEffect(() => {
     dispatch(getBasket());
   }, [dispatch]);
@@ -31,6 +33,11 @@ const Header = ({ onShowBasket }) => {
       };
     }, 600);
   }, [items]);
+
+  const themeChangeHandler = () => {
+    const theme = themeMode === "light" ? "dark" : "light";
+    dispatch(uiActions.changeTheme(theme));
+  };
   return (
     <Container>
       <Logo>ReactMeals</Logo>
@@ -39,27 +46,32 @@ const Header = ({ onShowBasket }) => {
         className={animationClass}
         count={calculateTotalAmount()}
       ></BasketButton>
+
+      <Button style={{color:"white"}} onClick={themeChangeHandler}>
+        {themeMode === "light" ? "Turn dark mode" : "Turn light mode"}
+      </Button>
+     
     </Container>
   );
-};
+}
 
 export default memo(Header);
 
-const Container = styled.div`
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 1;
-  height: 101px;
-  background-color: rgb(138, 43, 6);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 120px;
-  padding-right: 120px;
-`;
+const Container = styled("header")(({ theme }) => ({
+  width: "100%",
+  position: "fixed",
+  top: 0,
+  zIndex: "1",
+  height: "101px",
+  backgroundColor: theme.palette.primary.light,
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  paddingLeft: "120px",
+  paddingRight: "120px",
+}));
 
-const Logo = styled.p`
+const Logo = styledComponents.p`
   margin: 0;
   font-weight: 600;
   font-size: 38px;

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import "./App.css";
 import Basket from "./components/basket/Basket";
 import Header from "./components/header/Header";
@@ -10,18 +10,34 @@ import { useFoods } from "./hooks/useFoods";
 import styled from "styled-components";
 import Snackbar from "./components/UI/Snackbar";
 import { uiActions } from "./store/ui/uiSlice";
-import {  MenuItem, Select } from "@mui/material";
+import { createTheme, MenuItem, Select, ThemeProvider } from "@mui/material";
+import { darkTheme, lightTheme } from "./lib/constants/theme";
 function AppContent() {
   const dispatch = useDispatch();
   const [isBasketVisible, setBasketVisible] = useState(false);
   const snackbar = useSelector((state) => state.ui.snackbar);
   const { sortDirection, changesetSortDirection, meals, isLoading, error } =
     useFoods();
+
+  const themeMode = useSelector((state) => state.ui.themeMode);
   const showBasketHnadler = useCallback(() => {
     setBasketVisible((prevState) => !prevState);
   }, []);
+
+  const theme = useMemo(() => {
+    const currentTheme =
+      themeMode === "light"
+        ? {
+            ...lightTheme,
+          }
+        : {
+            ...darkTheme,
+          };
+
+    return createTheme(currentTheme);
+  }, [themeMode]);
   return (
-    <Provider store={store}>
+    <ThemeProvider theme={theme}>
       <Header onShowBasket={showBasketHnadler} />
 
       <Summary />
@@ -45,7 +61,7 @@ function AppContent() {
         message={snackbar.message}
         onClose={() => dispatch(uiActions.closeSnackbar())}
       />
-    </Provider>
+    </ThemeProvider>
   );
 }
 
